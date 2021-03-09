@@ -1,0 +1,15 @@
+---
+- name: "[JobManager] Stop possible previous JobManager"
+  hosts: JobManager
+  gather_facts: true
+  roles:
+    - jobmanager
+
+- name: "[JobManager:TaskManagers] Provisioning nodes (JDK and Flink)"
+  hosts: JobManager:TaskManagers
+  become: true
+  gather_facts: true
+  vars_files:
+    - ./vars/config.yml
+  roles:
+    - common

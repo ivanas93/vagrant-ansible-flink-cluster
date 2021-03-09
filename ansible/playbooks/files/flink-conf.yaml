@@ -1,0 +1,9 @@
+jobmanager.rpc.address: 192.168.10.200
+env.java.home: /home/vagrant/jdk-11.0.2/bin/java
+jobmanager.rpc.port: 6123
+jobmanager.memory.process.size: 1600m
+taskmanager.memory.process.size: 1728m
+taskmanager.numberOfTaskSlots: 2
+parallelism.default: 2
+jobmanager.execution.failover-strategy: region
+rest.port: 8082

@@ -1,0 +1,6 @@
+---
+- name: "Download and install jdk 11"
+  import_tasks: java.yml
+
+- name: "Download and install Flink cluster"
+  import_tasks: flink.yml

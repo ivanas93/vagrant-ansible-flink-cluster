@@ -1,0 +1,19 @@
+home_directory: "/home/vagrant"
+
+flink_usr_folder: '{{ home_directory }}/flink'
+flink_version: 1.12.2
+flink_url: "https://archive.apache.org/dist/flink/flink-{{ flink_version }}/flink-{{ flink_version }}-bin-scala_2.11.tgz"
+
+java_type: jdk
+java_version: 11
+java_update: 2
+java_build: '9'
+java_platform: linux-x64
+java_usr_folder: '{{ home_directory }}'
+java_download_base_url: https://download.java.net/java/GA
+
+java_download_filename: 'open{{ java_type }}-{{ java_version }}.0.{{ java_update }}_{{ java_platform }}_bin.tar.gz'
+java_download_url: '{{ java_download_base_url }}/{{ java_type }}{{ java_version}}/{{ java_build }}/GPL/{{ java_download_filename }}'
+java_folder: '{{ java_usr_folder }}/jdk-{{ java_version }}.0.{{ java_update }}'
+java_archive: '{{ java_usr_folder }}/{{ java_download_filename }}'
+java_security_folder: '{{ java_folder }}/lib/security'
