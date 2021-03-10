@@ -32,5 +32,5 @@
 
 - name: Copy flik-conf.yaml
   copy:
-    src: ../../../files/flink-conf.yaml
+    src: flink-conf.yaml
     dest: "{{ flink_usr_folder }}/flink-{{ flink_version }}/conf/"
