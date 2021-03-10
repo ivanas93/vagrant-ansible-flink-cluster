@@ -1,0 +1,5 @@
+---
+- name: Copy flik-conf.yaml
+  copy:
+    src: workers
+    dest: "{{ flink_usr_folder }}/flink-{{ flink_version }}/conf/"
