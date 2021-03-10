@@ -1,6 +1,6 @@
 - name: 'Creating {{ home_directory }}'
   file:
-    path: "{{ home_directory }}"
+    path: '{{ home_directory }}'
     state: directory
 
 - name: 'Creating {{ java_folder }}'
@@ -31,11 +31,11 @@
     src: 'cacerts'
     dest: '{{ java_security_folder }}/cacerts'
 
-- name: 'Set JAVA_HOME if configured.'
+- name: Set JAVA_HOME if configured.
   template:
     src: java.sh.j2
     dest: /etc/profile.d/java.sh
     mode: 0644
 
-- name: '[jdk] Reload /etc/profile'
-  shell: '. /etc/profile'
+- name: Reloading /etc/profile for activating JDK
+  shell: . /etc/profile

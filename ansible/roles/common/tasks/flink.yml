@@ -1,18 +1,18 @@
-- name: 'Creating flink_usr_folder'
+- name: Creating flink_usr_folder
   file:
-    path: "{{ flink_usr_folder }}"
+    path: '{{ flink_usr_folder }}'
     state: directory
 
-- name: "Retrieve apache flink archive from {{ flink_url }} to {{ flink_usr_folder }}"
+- name: 'Retrieve apache flink archive from {{ flink_url }} to {{ flink_usr_folder }}'
   get_url:
-    url: "{{ flink_url }}"
-    dest: "{{ flink_usr_folder }}"
+    url: '{{ flink_url }}'
+    dest: '{{ flink_usr_folder }}'
     timeout: 600
 
-- name: "Unarchive apache flink archive from {{ flink_usr_folder }}/flink-{{ flink_version }}-bin-scala_2.11.tgz to {{ flink_usr_folder }}"
+- name: 'Unarchive apache flink archive from {{ flink_usr_folder }}/flink-{{ flink_version }}-bin-scala_2.11.tgz to {{ flink_usr_folder }}'
   unarchive:
-    src: "{{ flink_usr_folder }}/flink-{{flink_version }}-bin-scala_2.11.tgz"
-    dest: "{{ flink_usr_folder }}"
+    src: '{{ flink_usr_folder }}/flink-{{flink_version }}-bin-scala_2.11.tgz'
+    dest: '{{ flink_usr_folder }}'
     owner: vagrant
     remote_src: yes
 
@@ -21,16 +21,16 @@
     path: '{{ flink_usr_folder }}/flink-{{flink_version }}-bin-scala_2.11.tgz'
     state: absent
 
-- name: 'Set flink/bin as environment variable'
+- name: Set flink/bin as environment variable
   template:
     src: flink.sh.j2
     dest: /etc/profile.d/flink.sh
     mode: 0644
 
-- name: '[flink] Reload /etc/profile'
-  shell: '. /etc/profile'
+- name: Reloading /etc/profile for activating Flink
+  shell: . /etc/profile
 
 - name: Copy flik-conf.yaml
   copy:
     src: flink-conf.yaml
-    dest: "{{ flink_usr_folder }}/flink-{{ flink_version }}/conf/"
+    dest: '{{ flink_usr_folder }}/flink-{{ flink_version }}/conf/'

@@ -1,13 +1,19 @@
 ---
-- name: "Stop possible previous cluster"
+- name: Stop possible previous cluster
   hosts: JobManager
 
   roles:
     - stop-cluster
 
-- name: "[JobManager:TaskManagers] Provisioning nodes (JDK and Flink)"
+- name: Provisioning nodes with JDK and Flink
   hosts: JobManager:TaskManagers
   become: true
 
   roles:
     - common
+
+- name: Provisioning JobManager with workers file and jobmanager.sh start
+  hosts: JobManager
+
+  roles:
+    - jobmanager
