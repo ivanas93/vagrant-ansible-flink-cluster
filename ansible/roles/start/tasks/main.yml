@@ -1,0 +1,24 @@
+- name: Install python-pip
+  shell: 'sudo apt install python-pip -y'
+  args:
+    executable: /bin/bash
+
+- name: Install pexpect
+  shell: 'sudo pip install pexpect'
+  args:
+    executable: /bin/bash
+
+- name: Start-up cluster
+  expect:
+    chdir: '{{ flink_bin_folder }}'
+    command: "./start-cluster.sh"
+    responses:
+      "Are you sure you want to continue connecting (yes/no)?": 'yes'
+      "vagrant@192.168.10.201's password:": 'vagrant'
+      "vagrant@192.168.10.202's password:": 'vagrant'
+
+- name: Install pexpect
+  shell: './jobmanager.sh'
+  args:
+    chdir: '{{ flink_bin_folder }}'
+    executable: /bin/bash

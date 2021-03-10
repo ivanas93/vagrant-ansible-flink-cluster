@@ -6,4 +6,4 @@ taskmanager.memory.process.size: 1728m
 taskmanager.numberOfTaskSlots: 2
 parallelism.default: 2
 jobmanager.execution.failover-strategy: region
-rest.port: 8082
+rest.port: 8081

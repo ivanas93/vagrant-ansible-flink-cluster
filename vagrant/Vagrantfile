@@ -26,11 +26,11 @@ Vagrant.configure(2) do |config|
      worker.vm.box = "ubuntu/trusty64"
      worker.vm.hostname = "taskmanager-1"
      worker.vm.network "private_network", ip: "192.168.10.201"
-#      worker.vm.provision "ansible" do |ansible|
-#       ansible.inventory_path = "../ansible/inventory"
-#       ansible.verbose = 'vvv'
-#       ansible.playbook = "../ansible/taskmanager.yml"
-#      end
+     worker.vm.provision "ansible" do |ansible|
+      ansible.inventory_path = "../ansible/inventory"
+      ansible.verbose = 'vvv'
+      ansible.playbook = "../ansible/site.yml"
+     end
      worker.vm.provider :virtualbox do |vb|
       vb.name = "taskmanager-1"
       vb.memory = 2048
@@ -43,11 +43,11 @@ Vagrant.configure(2) do |config|
      worker.vm.box = "ubuntu/trusty64"
      worker.vm.hostname = "taskmanager-2"
      worker.vm.network "private_network", ip: "192.168.10.202"
-#      worker.vm.provision "ansible" do |ansible|
-#       ansible.inventory_path = "../ansible/inventory"
-#       ansible.verbose = 'vvv'
-#       ansible.playbook = "../ansible/taskmanager.yml"
-#      end
+     worker.vm.provision "ansible" do |ansible|
+      ansible.inventory_path = "../ansible/inventory"
+      ansible.verbose = 'vvv'
+      ansible.playbook = "../ansible/site.yml"
+     end
      worker.vm.provider :virtualbox do |vb|
       vb.name = "taskmanager-2"
       vb.memory = 2048
@@ -55,4 +55,5 @@ Vagrant.configure(2) do |config|
      end
      worker.vm.network "forwarded_port", guest: 22, host: 2222, id: 'ssh'
     end
+
 end
