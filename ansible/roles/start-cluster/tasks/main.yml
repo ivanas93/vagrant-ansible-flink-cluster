@@ -1,0 +1,32 @@
+---
+- name: Register jobmanager
+  environment:
+    JAVA_HOME: '{{ java_folder }}'
+    PATH: '{{ usr_bin }}:{{ flink_bin_folder }}:{{ java_folder }}/bin'
+  shell: ./jobmanager.sh start
+  args:
+    chdir: '{{ flink_bin_folder }}'
+  async: 20
+  poll: 0
+
+- name: Register taskmanager-1
+  environment:
+    JAVA_HOME: '{{ java_folder }}'
+    PATH: '{{ usr_bin }}:{{ flink_bin_folder }}:{{ java_folder }}/bin'
+  shell: ./taskmanager.sh start
+  args:
+    chdir: '{{ flink_bin_folder }}'
+  async: 20
+  poll: 0
+  delegate_to: taskmanager-1
+
+- name: Register taskmanager-2
+  environment:
+    JAVA_HOME: '{{ java_folder }}'
+    PATH: '{{ usr_bin }}:{{ flink_bin_folder }}:{{ java_folder }}/bin'
+  shell: ./taskmanager.sh start
+  args:
+    chdir: '{{ flink_bin_folder }}'
+  async: 20
+  poll: 0
+  delegate_to: taskmanager-2
