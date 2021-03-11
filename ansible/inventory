@@ -1,6 +1,6 @@
-jobmanager ansible_ssh_host=127.0.0.1 ansible_ssh_port=2220 ansible_ssh_user=vagrant
-taskmanager-1 ansible_ssh_host=127.0.0.1 ansible_ssh_port=2221 ansible_ssh_user=vagrant
-taskmanager-2 ansible_ssh_host=127.0.0.1 ansible_ssh_port=2222 ansible_ssh_user=vagrant
+jobmanager ansible_ssh_host=127.0.0.1 ansible_ssh_port=2220 ansible_ssh_user=vagrant ansible_ssh_pass=vagrant
+taskmanager-1 ansible_ssh_host=127.0.0.1 ansible_ssh_port=2221 ansible_ssh_user=vagrant ansible_ssh_pass=vagrant
+taskmanager-2 ansible_ssh_host=127.0.0.1 ansible_ssh_port=2222 ansible_ssh_user=vagrant ansible_ssh_pass=vagrant
 
 [JobManager]
 jobmanager
