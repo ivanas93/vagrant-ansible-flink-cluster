@@ -1,2 +1,4 @@
 .idea
 vagrant/.vagrant
+ansible/roles/common/files/openjdk-11.0.2_linux-x64_bin.tar.gz
+ansible/roles/common/files/flink-1.12.2-bin-scala_2.11.tgz
