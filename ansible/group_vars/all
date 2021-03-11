@@ -1,10 +1,12 @@
-home_directory: "/home/vagrant"
+home_directory: '/home/vagrant'
+
+usr_bin: '/usr/bin'
 
 flink_version: 1.12.2
 flink_base_folder: '{{ home_directory }}/flink'
 flink_final_folder: '{{ flink_base_folder }}/flink-{{ flink_version }}'
 flink_bin_folder: '{{ flink_final_folder }}/bin'
-flink_url: "https://archive.apache.org/dist/flink/flink-{{ flink_version }}/flink-{{ flink_version }}-bin-scala_2.11.tgz"
+flink_url: 'https://archive.apache.org/dist/flink/flink-{{ flink_version }}/flink-{{ flink_version }}-bin-scala_2.11.tgz'
 
 java_type: jdk
 java_version: 11
