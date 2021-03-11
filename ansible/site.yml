@@ -1,12 +1,11 @@
 - name: Provisioning nodes with JDK and Flink
   hosts: JobManager:TaskManagers
-  become: true
 
   roles:
     - common
 
-- name: Provisioning nodes with JDK and Flink
+- name: Init flink-cluster
   hosts: JobManager
 
   roles:
-    - start
+    - start-cluster
