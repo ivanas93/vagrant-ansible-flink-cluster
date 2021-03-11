@@ -8,11 +8,23 @@
     path: '{{ java_folder }}'
     state: directory
 
+- name: 'Check with local-action {{ playbook_dir }}/roles/common/files/{{ java_download_filename }}'
+  local_action: stat path={{ playbook_dir }}/roles/common/files/{{ java_download_filename }}
+  changed_when: false
+  register: result_jdk
+
+- name: 'Copy local JDK to {{ java_usr_folder }} '
+  copy:
+    src: '{{ java_download_filename }}'
+    dest: '{{ java_archive }}'
+  when: result_jdk.stat.exists
+
 - name: 'Downloading Java 11 JDK files {{ java_download_filename }}'
   get_url:
     url: '{{ java_download_url }}'
     validate_certs: false
     dest: '{{ java_archive }}'
+  when: not result_jdk.stat.exists
 
 - name: 'Uncompressing {{ java_download_filename }} file'
   unarchive:
@@ -21,7 +33,7 @@
     owner: vagrant
     copy: false
 
-- name: 'Remove downloaded( {{ java_archive }} ) file'
+- name: 'Remove comprime file ( {{ java_archive }} ) file'
   file:
     path: '{{ java_archive }}'
     state: absent
@@ -32,6 +44,7 @@
     dest: '{{ java_security_folder }}/cacerts'
 
 - name: Set JAVA_HOME if configured.
+  become: true
   template:
     src: java.sh.j2
     dest: /etc/profile.d/java.sh

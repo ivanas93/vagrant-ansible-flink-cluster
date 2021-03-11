@@ -3,11 +3,23 @@
     path: '{{ flink_base_folder }}'
     state: directory
 
+- name: 'Check local-action {{ playbook_dir }}/roles/common/files/flink-{{ flink_version }}-bin-scala_2.11.tgz'
+  local_action: stat path={{ playbook_dir }}/roles//common/files/flink-{{ flink_version }}-bin-scala_2.11.tgz
+  changed_when: false
+  register: result_flink
+
+- name: 'Copy local flink to {{ flink_base_folder }} '
+  copy:
+    src: 'flink-{{ flink_version }}-bin-scala_2.11.tgz'
+    dest: '{{ flink_base_folder }}'
+  when: result_flink.stat.exists
+
 - name: 'Retrieve apache flink archive from {{ flink_url }} to {{ flink_base_folder }}'
   get_url:
     url: '{{ flink_url }}'
     dest: '{{ flink_base_folder }}'
     timeout: 600
+  when: not result_flink.stat.exists
 
 - name: 'Unarchive apache flink archive from {{ flink_final_folder }}-bin-scala_2.11.tgz to {{ flink_base_folder }}'
   unarchive:
@@ -22,6 +34,7 @@
     state: absent
 
 - name: Set flink/bin as environment variable
+  become: true
   template:
     src: flink.sh.j2
     dest: /etc/profile.d/flink.sh
