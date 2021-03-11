@@ -2,28 +2,8 @@ Vagrant.configure(2) do |config|
     config.vm.network "private_network", type: "dhcp"
     config.ssh.insert_key = false
 
-    config.vm.define("jobmanager") do |master|
-      master.vm.box = "ubuntu/trusty64"
-      master.vm.hostname = "jobmanager"
-      master.vm.network "private_network", ip: "192.168.10.200"
-      master.vm.provision "ansible" do |ansible|
-       ansible.inventory_path = "../ansible/inventory"
-       ansible.verbose = 'vvv'
-       ansible.playbook = "../ansible/site.yml"
-      end
-      master.vm.provider :virtualbox do |vb|
-        vb.name = "jobmanager"
-        vb.memory = 1536
-        vb.cpus = 1
-      end
-      master.vm.network "forwarded_port", guest: 8080, host: 8080
-      master.vm.network "forwarded_port", guest: 8081, host: 8081
-      master.vm.network "forwarded_port", guest: 6123, host: 6123
-      master.vm.network "forwarded_port", guest: 22, host: 2220, id: 'ssh'
-    end
-
     config.vm.define("taskmanager-1") do |worker|
-     worker.vm.box = "ubuntu/trusty64"
+     worker.vm.box = "bento/ubuntu-20.04"
      worker.vm.hostname = "taskmanager-1"
      worker.vm.network "private_network", ip: "192.168.10.201"
      worker.vm.provision "ansible" do |ansible|
@@ -40,7 +20,7 @@ Vagrant.configure(2) do |config|
     end
 
     config.vm.define("taskmanager-2") do |worker|
-     worker.vm.box = "ubuntu/trusty64"
+     worker.vm.box = "bento/ubuntu-20.04"
      worker.vm.hostname = "taskmanager-2"
      worker.vm.network "private_network", ip: "192.168.10.202"
      worker.vm.provision "ansible" do |ansible|
@@ -54,6 +34,26 @@ Vagrant.configure(2) do |config|
       vb.cpus = 1
      end
      worker.vm.network "forwarded_port", guest: 22, host: 2222, id: 'ssh'
+    end
+
+    config.vm.define("jobmanager") do |master|
+      master.vm.box = "bento/ubuntu-20.04"
+      master.vm.hostname = "jobmanager"
+      master.vm.network "private_network", ip: "192.168.10.200"
+      master.vm.provision "ansible" do |ansible|
+       ansible.inventory_path = "../ansible/inventory"
+       ansible.verbose = 'vvv'
+       ansible.playbook = "../ansible/site.yml"
+      end
+      master.vm.provider :virtualbox do |vb|
+        vb.name = "jobmanager"
+        vb.memory = 1536
+        vb.cpus = 1
+      end
+      master.vm.network "forwarded_port", guest: 8080, host: 8080
+      master.vm.network "forwarded_port", guest: 8081, host: 8081
+      master.vm.network "forwarded_port", guest: 6123, host: 6123
+      master.vm.network "forwarded_port", guest: 22, host: 2220, id: 'ssh'
     end
 
 end
